@@ -1,18 +1,24 @@
 name: Tconnect Sync
 on:
   schedule:
-    - cron: '*/10 * * * *' # Detta kör synkningen var 10:e minut
-  workflow_dispatch: # Detta gör att du kan starta den manuellt med en knapp
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run Tconnect Sync
-        uses: jwoglom/tconnectsync-action@master
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          tconnect_email: ${{ secrets.TCONNECT_EMAIL }}
-          tconnect_password: ${{ secrets.TCONNECT_PASSWORD }}
-          ns_url: ${{ secrets.NS_URL }}
-          ns_secret: ${{ secrets.NS_SECRET }}
+          python-version: '3.x'
+      - name: Install tconnectsync
+        run: pip install tconnectsync
+      - name: Run sync
+        run: tconnectsync --auto-update
+        env:
+          TCONNECT_EMAIL: ${{ secrets.TCONNECT_EMAIL }}
+          TCONNECT_PASSWORD: ${{ secrets.TCONNECT_PASSWORD }}
+          NS_URL: ${{ secrets.NS_URL }}
+          NS_SECRET: ${{ secrets.NS_SECRET }}

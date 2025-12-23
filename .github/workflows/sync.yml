@@ -12,16 +12,17 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Vi använder en stabil version
+          python-version: '3.11'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools # Detta fixar felet "pkg_resources"
+          pip install setuptools
           pip install tconnectsync
       - name: Run sync
         run: tconnectsync --auto-update
         env:
           TCONNECT_EMAIL: ${{ secrets.TCONNECT_EMAIL }}
           TCONNECT_PASSWORD: ${{ secrets.TCONNECT_PASSWORD }}
+          TCONNECT_REGION: ${{ secrets.TCONNECT_REGION }}
           NS_URL: ${{ secrets.NS_URL }}
           NS_SECRET: ${{ secrets.NS_SECRET }}

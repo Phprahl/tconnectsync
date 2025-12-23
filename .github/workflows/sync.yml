@@ -19,7 +19,7 @@ jobs:
           pip install setuptools
           pip install tconnectsync
       - name: Run sync
-        run: tconnectsync --auto-update
+        run: tconnectsync
         env:
           TCONNECT_EMAIL: ${{ secrets.TCONNECT_EMAIL }}
           TCONNECT_PASSWORD: ${{ secrets.TCONNECT_PASSWORD }}

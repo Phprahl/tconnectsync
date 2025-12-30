@@ -19,10 +19,11 @@ jobs:
           pip install setuptools
           pip install tconnectsync
       - name: Run sync
-        run: tconnectsync --features BASAL BOLUS PUMP_EVENTS PROFILES CGM --timezone Europe/Stockholm
+        run: tconnectsync --features BASAL BOLUS PUMP_EVENTS PROFILES CGM --auto-update
         env:
           TCONNECT_EMAIL: ${{ secrets.TCONNECT_EMAIL }}
           TCONNECT_PASSWORD: ${{ secrets.TCONNECT_PASSWORD }}
           TCONNECT_REGION: ${{ secrets.TCONNECT_REGION }}
           NS_URL: ${{ secrets.NS_URL }}
           NS_SECRET: ${{ secrets.NS_SECRET }}
+          TZ: "Europe/Stockholm"
